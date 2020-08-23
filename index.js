@@ -5,8 +5,6 @@ import { map } from './mapper.js';
 const cache = new TimedCache(3600);
 setInterval(() => cache.purge(), 5000);
 
-const mappers = {};
-
 const configutation = {
   version: 2,
   actions: {
@@ -16,7 +14,7 @@ const configutation = {
         const mapperId = uid(16);
         cache.set(mapperId, input.body);
 
-        output.pipeTo(`--local map --using=${mapperId}`);
+        output.pipeTo(`map --using=${mapperId}`);
       },
     },
     map: {
@@ -32,9 +30,8 @@ const configutation = {
           return;
         }
 
-        console.log(mapper, input.body);
         const mappedValue = map(input.body, mapper);
-        cache.discard(mapperId);
+        cache.delete(mapperId);
 
         output.send(mappedValue);
       },

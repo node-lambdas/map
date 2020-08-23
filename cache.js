@@ -1,8 +1,8 @@
 export class TimedCache {
-  constructor(maxLife) {
+  constructor() {
     this.items = [];
-    this.maxLength = 2;
-    this.maxLife = maxLife;
+    this.maxLength = process.env.MAX_CACHE_SIZE;
+    this.maxLife = process.env.MAX_CACHE_LIFE;
   }
 
   set(id, value) {
@@ -27,7 +27,7 @@ export class TimedCache {
     this.items = this.items.filter((item) => item.maxLife > now);
   }
 
-  discard(id) {
+  delete(id) {
     this.items = this.items.filter((item) => item.id !== id);
   }
 }

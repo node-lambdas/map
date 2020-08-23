@@ -1,1 +1,7 @@
-{ "domain": "map.jsfn.run" }
+{
+  "domain": "map.jsfn.run",
+  "env": {
+    "MAX_CACHE_LIFE": 60000,
+    "MAX_CACHE_SIZE": 100
+  }
+}
